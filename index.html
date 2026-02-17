@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Implementation Dashboard</title>
+    <style>
+        :root {
+            --primary: #6a25eb;
+            --bg: #0a0a0a;
+            --text: #dfdfdf;
+            --success: #22c55e;
+            --error: #ef4444;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: rgb(26, 26, 26); padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 400px; }
+        h2 { margin-top: 0; font-size: 1.5rem; text-align: center; color: var(--primary); }
+        p { text-align: center; font-size: 0.9rem; color: #8b87bd; margin-bottom: 2rem; }
+        .status-list { list-style: none; padding: 0; }
+        .status-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #f1f5f9; }
+        .status-item:last-child { border-bottom: none; }
+        .badge { font-size: 0.75rem; font-weight: bold; padding: 4px 8px; border-radius: 20px; text-transform: uppercase; }
+        .online { background: #dcfce7; color: #166534; }
+        .checking { background: #fef9c3; color: #854d0e; }
+        .btn-refresh { width: 100%; margin-top: 1.5rem; padding: 12px; border: none; border-radius: 0.5rem; background: var(--primary); color: white; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+        .btn-refresh:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>System Health Monitor</h2>
+    <p>Internal Tool for Software Implementation Specialists</p>
+    
+    <div class="status-list">
+        <div class="status-item">
+            <span>API Gateway</span>
+            <span id="api-status" class="badge online">Operational</span>
+        </div>
+        <div class="status-item">
+            <span>Database Cluster</span>
+            <span id="db-status" class="badge online">Operational</span>
+        </div>
+        <div class="status-item">
+            <span>Authentication Service</span>
+            <span id="auth-status" class="badge online">Operational</span>
+        </div>
+    </div>
+
+    <button class="btn-refresh" onclick="refreshStatus()">Run Connectivity Diagnostic</button>
+</div>
+
+<script>
+    function refreshStatus() {
+        const statuses = ['api-status', 'db-status', 'auth-status'];
+        const btn = document.querySelector('.btn-refresh');
+        
+        btn.innerText = "Diagnosing...";
+        btn.disabled = true;
+
+        statuses.forEach(id => {
+            const el = document.getElementById(id);
+            el.innerText = "Checking...";
+            el.className = "badge checking";
+            
+            // Simular un retraso de red
+            setTimeout(() => {
+                el.innerText = "Operational";
+                el.className = "badge online";
+                btn.innerText = "Run Connectivity Diagnostic";
+                btn.disabled = false;
+            }, 1500 + Math.random() * 1000);
+        });
+    }
+</script>
+
+</body>
+</html>
